@@ -12,11 +12,12 @@ This library provides a logging framework for Unity projects. Beyond the Unity b
 
 ## Usage
 
-Clone this library into your unity
+Clone this library into your unity project
 
 ```bash
 cd <UnityProject>
 mkdir Libraries
+cd Libraries
 git submodule add <thisGitRepo>
 ```
 
