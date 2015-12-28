@@ -1,6 +1,6 @@
-= Unity Logging Library
+# Unity Logging Library
 
-== Overview
+## Overview
 
 This library provides a logging framework for Unity projects. Beyond the Unity built-in logging it provides some useful additional features :
 
@@ -10,7 +10,7 @@ This library provides a logging framework for Unity projects. Beyond the Unity b
 * Configurable filter for what priorities to output
 * File and console logging
 
-== Usage
+## Usage
 
 Clone this library into your unity
 
