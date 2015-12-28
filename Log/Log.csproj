@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Log</RootNamespace>
     <AssemblyName>Log</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,15 +33,15 @@
   <PropertyGroup>
     <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -R "$(TargetDir)/*" "$(SolutionDir)/Assets/Binaries"</PostBuildEvent>
     <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">xcopy "$(TargetDir)*" "$(SolutionDir)Assets\Binaries" /Y /E /I</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">rm "$(SolutionDir)/Assets/Binaries/Unity*"</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">IF EXIST "$(SolutionDir)Assets\Binaries\Unity*.*" del "$(SolutionDir)Assets\Binaries\Unity*.*" /Y /E /I</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\packages\UnityEngine.dll</HintPath>
@@ -51,6 +52,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)*" "$(SolutionDir)Assets\Binaries" /Y /E /I
+del "$(SolutionDir)Assets\Binaries\UnityEngine.dll"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
