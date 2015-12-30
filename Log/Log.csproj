@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,12 +11,13 @@
     <AssemblyName>Log</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -24,17 +25,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>True</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -R "$(TargetDir)/*" "$(SolutionDir)/Assets/Binaries"</PostBuildEvent>
-    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">xcopy "$(TargetDir)*" "$(SolutionDir)Assets\Binaries" /Y /E /I</PostBuildEvent>
-    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">rm "$(SolutionDir)/Assets/Binaries/Unity*"</PostBuildEvent>
-    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">IF EXIST "$(SolutionDir)Assets\Binaries\Unity*.*" del "$(SolutionDir)Assets\Binaries\Unity*.*" /Y /E /I</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -52,15 +47,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)*" "$(SolutionDir)Assets\Binaries" /Y /E /I
-del "$(SolutionDir)Assets\Binaries\UnityEngine.dll"</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
+  <ItemGroup>
+    <Binaries Include="%24%28OutDir%29**\*" />
+  </ItemGroup>
   <Target Name="AfterBuild">
+    <Copy SourceFiles="@(Binaries)" DestinationFolder="$(SolutionDir)/Assets/Binaries" />
+    <Delete Files="$(SolutionDir)/Assets/Binaries/UnityEngine.dll" />
+    <Delete Files="$(SolutionDir)/Assets/Binaries/UnityEditor.dll" />
   </Target>
-  -->
 </Project>
